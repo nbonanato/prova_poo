@@ -1,8 +1,9 @@
 <%-- 
-    Document   : newjsp
-    Created on : 30/09/2020, 23:15:10
+    Document   : index
+    Created on : 30/09/2020, 23:16:47
     Author     : Nicholas
 --%>
+
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
