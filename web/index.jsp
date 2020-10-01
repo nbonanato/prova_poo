@@ -47,7 +47,7 @@ if(disciplina == null) {
         <div> 
             <h1>Nome</h1><br>Nicholas Stefan Bonanato<br>
             <h1>RA</h1><br> 1290481913028<br>
-            <h1>Número de disciplinas matriculadas</h1>
+            <h1>Número de disciplinas matriculadas</h1><br>
             
             <% 
             if (disciplina != null) {
