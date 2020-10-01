@@ -80,7 +80,7 @@ application.setAttribute("disciplinas", disciplina);
                     </table>
         
         
-        
+          <%@include file="menu.jspf"%>
         
     </body>
 </html>

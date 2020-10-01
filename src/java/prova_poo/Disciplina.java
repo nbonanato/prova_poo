@@ -20,6 +20,9 @@ public class Disciplina {
     
  }
  
+ public ArrayList<Disciplina> getList() {
+     return disciplinas;
+ }
  public String getNome() {
      return nome;
  }
@@ -39,6 +42,7 @@ public class Disciplina {
  public void setList(ArrayList<Disciplina> list){
      disciplinas = list;
  }
+ 
  
  public void setNota(float value) {
      nota = value;
