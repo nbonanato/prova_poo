@@ -12,7 +12,7 @@ public class Disciplina {
     float nota;
     
     public static ArrayList<Disciplina> getList() throws Exception {
-    ArrayList<Disciplina> disciplinas = new ArrayList<>();
+    ArrayList<Disciplina> list = new ArrayList<>();
          Connection con = null;
         Statement stmt = null;
         Exception methodEx = null;
