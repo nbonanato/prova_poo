@@ -2,6 +2,7 @@ package prova_poo;
 import java.util.ArrayList;
 import web.dbListener;
 import java.sql.*;
+import java.util.Collections;
                 
 public class Disciplina {
     
@@ -32,7 +33,7 @@ public class Disciplina {
                 }
 
         } catch (Exception e) {
-            methodEx = ex;
+            methodEx = e;
         } finally {
             try {
                   stmt.close();
