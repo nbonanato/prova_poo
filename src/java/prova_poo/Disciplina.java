@@ -25,7 +25,7 @@ public class Disciplina {
                     rs = stmt.executeQuery("SELECT * FROM disciplinas");
                     
                while (rs.next()) {
-                   list.add (new Disciplina(rs.getString("nome"), rs.getString("ementa"), rs.getInt("ciclo")));   
+                   list.add (new Disciplina(rs.getString("nome"), rs.getString("ementa"), rs.getInt("ciclo"), rs.getFloat("nota")));   
                }
       
         } catch (Exception ex) {
@@ -117,10 +117,11 @@ public class Disciplina {
     
     
     
-    public Disciplina(String nome, String ementa, int ciclo) {
+    public Disciplina(String nome, String ementa, int ciclo, float nota) {
         this.nome  = nome;
         this.ementa = ementa;
         this.ciclo = ciclo;
+        this.nota = nota;
        
     }
     

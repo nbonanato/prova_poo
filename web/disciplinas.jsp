@@ -1,47 +1,58 @@
 <%@page import="java.util.Set" %>
 <%@page import="prova_poo.Disciplina" %>
 <%@page import="java.util.ArrayList" %>
+<%@page import="web.DbListener" %>
 
 <% 
-Disciplina disciplina = null;
+String exceptionMsg = null;
 
-try {
-    disciplina = (Disciplina) application.getAttribute("disciplinas");
-} catch (Exception e) {
-    out.println("Ops! Deu erro.");
+if (request.getParameter("cancelar") != null) {
+    response.sendRedirect(request.getRequestURI());
 }
 
-if (disciplina != null) {
-    ArrayList<Disciplina> listD = disciplina.getList();
-    ArrayList<Disciplina> newList = new ArrayList <>();
+if (request.getParameter("formInsert") != null) {
     
-    int count = 0;
-    
-    for (int i = 0; i < disciplina.getList().size(); i++) {
+    try {
+        String nome = request.getParameter("nome");
+        String ementa = request.getParameter("ementa");
+        int ciclo = Integer.parseInt(request.getParameter("ciclo"));
+        float nota = Float.parseFloat(request.getParameter("nota"));
+        Disciplina.insert(nome, ementa, ciclo, nota);
         
-        try {
-   String nota = request.getParameter("nota"+i);
-   Disciplina disci = listD.get(i);
-   
-   newList.add(disci);
-   count++;
-   
-} catch (Exception e) {
-    out.println("Ops! Deu erro.");
-    continue;
-}
-     
-    }
-    
-    if (count == disciplina.getList().size()) {
-        disciplina.setList(newList);
-    }
-    
-    application.setAttribute("disciplinas", disciplina);
-    
-    
-}
+        response.sendRedirect(request.getRequestURI());
 
+    } catch (Exception e) {
+        exceptionMsg = e.getLocalizedMessage();
+    }}
+    
+    
+if (request.getParameter("formUpdate") != null) {
+    
+    try {
+        String nome = request.getParameter("nome");
+         String nomeAntigo = request.getParameter("nomeAntigo");
+        String ementa = request.getParameter("ementa");
+        int ciclo = Integer.parseInt(request.getParameter("ciclo"));
+        float nota = Float.parseFloat(request.getParameter("nota"));
+        Disciplina.update(nomeAntigo, nome, ementa, ciclo, nota);
+        
+        response.sendRedirect(request.getRequestURI());
+
+    } catch (Exception e) {
+        exceptionMsg = e.getLocalizedMessage();
+    }}
+        
+    
+    if (request.getParameter("formDelete") != null) {
+    
+    try {
+        String nome = request.getParameter("nome");
+        Disciplina.delete(nome);
+        response.sendRedirect(request.getRequestURI());
+
+    } catch (Exception e) {
+        exceptionMsg = e.getLocalizedMessage();
+    }}
 %>
 
 
@@ -55,29 +66,27 @@ if (disciplina != null) {
     <body>
         <h1>Essas são as disciplinas!</h1>
         
+        <% if (request.getParameter("prepareInsert")!= null) {   %>
+        <h3>Inserir registro</h3>
         <form>
-            <table class="table">
-            
-                <%
-                for (int i= 0; i < disciplina.getList().size(); i++) {
-                %>
-                <tr>
-                    <td> <% out.println(disciplina.getList().get(i).getNome()); %>   </td>
-                    <td> <% out.println(disciplina.getList().get(i).getEmenta()); %> </td>
-                    <td>  <% out.println(disciplina.getList().get(i).getCiclo()); %>  </td>
-                    <td> <input type="text" name="nota <% out.print(Integer.toString(i)); %>" value="<%out.println(disciplina.getList().get(i).getNota()); %>"></td>
-                </tr>
-                <%
-                }
-                %>
-                
-                <input type="submit" name="" value = "Atualizar">
-                
-
-            </table>
-            
+            Nome: <input type="text" name="nome" />
+            Ementa: <input type="text" name="ementa" />
+            Ciclo: <input type="text" name="ciclo" />
+            Nota: <input type="text" name="nota" />
+            <input type="submit" name="formInsert" value="Inserir" />
+            <input type="submit" name="cancelar" value="Cancelar" />
         </form>
-
+        
+        <% } else if (request.getParameter("prepareUpdate") != null) { %>
+        <h3>Alteração de registro</h3>
+        <% String nome = request.getParameter("nome");
+        String ementa = request.getParameter("ementa");
+        int ciclo = Integer.parseInt(request.getParameter("ciclo"));%>
+            <input type="hidden" name="nomeAntigo" value="<%=nome%>"/>
+        Nome:  <input type="text" name="nome" value="<%=nome%>"/>
+        Ementa:  <input type="text" name="nome" value="<%=ementa%>"/>
+        Ciclo:  <input type="text" name="nome" value="<%=ciclo%>"/>
+        Nota:  <input type="text" name="nome" value="<%=nota%>"/>
         
                 <%@include file="WEB-INF/menu.jspf" %>
     </body>
